@@ -48,8 +48,8 @@
                     @foreach($befores as $category)
                         <tr>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->requirement }}</td>
-                            <td>{{ $category->method }}</td>
+                            <td><input type="text" name="categories[{{ $category->id }}][requirement]" class="form-control" value="{{ $category->requirement }}"></td>
+                            <td><input type="text" name="categories[{{ $category->id }}][method]" class="form-control" value="{{ $category->method }}"></td>
                             <td><input type="text" name="categories[{{ $category->id }}][result]" class="form-control" value="{{ $category->result }}"></td>
                             <td><input type="text" name="categories[{{ $category->id }}][evaluation]" class="form-control" value="{{ $category->evaluation }}"></td>
                             <td><input type="text" name="categories[{{ $category->id }}][note]" class="form-control" value="{{ $category->note }}"></td>

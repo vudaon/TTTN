@@ -31,10 +31,13 @@ Route::middleware('auth')->post('/logout', [LoginController::class, 'logout'])->
 
 // Route::post('/logout', [LoginController::class, 'logout']);
 // });
+Route::get('/',function(){
+    return redirect(route('home')); 
+});
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
         return view('home');
-    });
+    })->name('home');
     Route::resource('/checklist', FlightCheckController::class);
     Route::resource('/airplanes', AirplaneController::class);
     Route::resource('/users', UserController::class);

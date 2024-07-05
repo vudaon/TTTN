@@ -42,8 +42,8 @@
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Requirement</th>
-                    <th scope="col">Method</th>
+                    <th scope="col-long">Requirement</th>
+                    <th scope="col-long">Method</th>
                     <th scope="col">Result</th>
                     <th scope="col">Evaluation</th>
                     <th scope="col">Note</th>
@@ -54,8 +54,20 @@
                     <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $category->name }}</td>
-                    <td>{{ $category->requirement }}</td>
-                    <td>{{ $category->method }}</td>
+                    <td>
+                        <div class="expandable-content">
+                            <div class="content-short">{{ Str::limit($category->requirement, 20) }}</div>
+                            <div class="content-long">{{ $category->requirement }}</div>
+                            <button class="toggle-btn" style="display: none;">▼</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="expandable-content">
+                            <div class="content-short">{{ Str::limit($category->method, 20) }}</div>
+                            <div class="content-long">{{ $category->method }}</div>
+                            <button class="toggle-btn" style="display: none;">▼</button>
+                        </div>
+                    </td>
                     <td>{{ $category->result }}</td>
                     <td>{{ $category->evaluation }}</td>
                     <td>{{ $category->note }}</td>
@@ -72,6 +84,34 @@
     <!-- /.content -->
  
 @endsection
+@push('js')
+    <script>
+ document.addEventListener('DOMContentLoaded', function () {
+        const expandableContents = document.querySelectorAll('.expandable-content');
 
+        expandableContents.forEach(content => {
+            const shortContent = content.querySelector('.content-short');
+            const longContent = content.querySelector('.content-long');
+            const toggleBtn = content.querySelector('.toggle-btn');
+
+            if (longContent && shortContent) {
+                // Chỉ hiển thị nút nếu nội dung dài hơn phiên bản ngắn
+                if (longContent.innerText.length > shortContent.innerText.length) {
+                    toggleBtn.style.display = 'inline-block';
+                }
+
+                toggleBtn.addEventListener('click', function () {
+                    content.classList.toggle('expanded');
+                    if (content.classList.contains('expanded')) {
+                        toggleBtn.innerText = '▲';
+                    } else {
+                        toggleBtn.innerText = '▼';
+                    }
+                });
+            }
+        });
+    });
+</script>
+@endpush()
 
 

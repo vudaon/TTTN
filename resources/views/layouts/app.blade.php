@@ -14,8 +14,8 @@
 </head>
 <style>
      .content-wrapper {
-            margin-left: 0; /* Đảm bảo không có margin ở phần trên */
-            padding-left: 0; /* Đảm bảo không có padding ở phần trên */
+            margin-left: 0; 
+            padding-left: 0;
         }
     @media (max-width: 768px) {
       .navbar-nav .nav-item {
@@ -47,28 +47,81 @@
         margin-bottom: 10px;
       }
     }
+    .expandable-content {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .content-short, .content-long {
+        overflow: hidden;
+        white-space: nowrap;
+        /* text-overflow: ellipsis; */
+    }
+    .content-short {
+        display: inline-block;
+    }
+    .content-long {
+        display: none;
+    }
+    .toggle-btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: blue;
+        font-weight: bold;
+        margin-left: 5px;
+    }
+
+    .expandable-content.expanded .content-short {
+        display: none;
+    }
+    .expandable-content.expanded .content-long {
+        display: inline-block;
+        white-space: normal;
+    }
+
+    .table-responsive {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    .table th, .table td {
+        word-wrap: break-word;
+        max-width: 150px;
+        overflow: hidden;
+        /* text-overflow: ellipsis; */
+    }
+
+    .table th {
+        white-space: nowrap;
+    }
+
+      .table .col-long {
+        min-width: 200px; 
+        max-width: 300px; 
+    }
+  
   </style>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <!-- Navbar -->
-        @include('layouts.header')
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
+        @include('layouts.header')
+
         @include('layouts.sidebar')
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
         </div>
 
-        <!-- Footer -->
+
         @include('layouts.footer')
     </div>
 
-    <!-- Scripts -->
+
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    @stack('js')
 </body>
 </html>
